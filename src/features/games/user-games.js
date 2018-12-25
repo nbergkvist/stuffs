@@ -1,35 +1,37 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
-import { getAllGames } from "../user/selectors";
-import actions from "./actions";
+import { getCompareGames } from "../user/selectors";
+import { getCompareLoadingState } from "./selectors";
 
 class UserGames extends PureComponent {
   render() {
-    const { games, addToCompare } = this.props;
-    const gameList = games.map(game => {
+    const {
+      compareGames,
+      startCompare,
+      removeFromCompare,
+      getCompareLoadingState
+    } = this.props;
+    const gameList = compareGames.map(game => {
       return <div key={game.appid}>{game.name} </div>;
     });
     return (
       <div>
-        <button type="button" onClick={() => addToCompare(76561197960286296)}>
-          Test
+        <button type="button" onClick={() => startCompare("76561197960350381")}>
+          Add: 76561197960350381
         </button>
-        {gameList}
+
+        {!getCompareLoadingState && gameList}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({});
-
-const mapDispatchToProps = dispatch => ({
-  addToCompare: value => dispatch(actions.startCompare(value))
+const mapStateToProps = state => ({
+  compareGames: getCompareGames(state),
+  getCompareLoadingState: getCompareLoadingState(state)
 });
 
-// addToCompare: value => {
-//   dispatch(actions.addToCompare(value));
-//   dispatch(actions.startCompare(value));
-// }
+const mapDispatchToProps = dispatch => ({});
 
 export default connect(
   mapStateToProps,

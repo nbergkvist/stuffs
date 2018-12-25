@@ -13,8 +13,7 @@ const {
   getUserFriends,
   getUserGames,
   getAllSteamGames,
-  getFriendName,
-  getFriendsGames
+  getFriendName
 } = service;
 
 export function* getUserDataWorker() {
@@ -34,39 +33,13 @@ export function* getUserDataWorker() {
       });
     });
 
-    const friends = [];
-    // const userFriendNames = yield all(
-    //   userFriends.map(friend => {
-    //     const friendId = friend.steamid;
-    //     return call(getFriendName, friendId);
-    //   })
-    // );
-
-    // const userFriendNamesGames = yield all(
-    //   userFriendNames.map(friend => {
-    //     return call(getFriendsGames, friend);
-    //   })
-    // );
-
-    // userFriendNamesGames.map(friend => {
-    //   const friendGame = [];
-    //   if (friend.friendGames) {
-    //     friend.friendGames.map(game => {
-    //       allGames.applist.apps.find(element => {
-    //         if (element.appid === game.appid) {
-    //           const newListItem = { appid: game.appid, name: element.name };
-    //           friendGame.push(newListItem);
-    //         }
-    //       });
-    //     });
-    //     const list = {
-    //       steamId: friend.steamId,
-    //       name: friend.name,
-    //       friendGames: friendGame
-    //     };
-    //     friends.push(list);
-    //   }
-    // });
+    // const friends = [];
+    const friends = yield all(
+      userFriends.map(friend => {
+        const friendId = friend.steamid;
+        return call(getFriendName, friendId);
+      })
+    );
 
     yield put({
       type: GET_USER_DATA_SUCCESS,

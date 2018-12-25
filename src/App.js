@@ -17,7 +17,7 @@ const App = ({ games, friends, loading }) => (
       <div className="friend-list">
         {friends && <UserFriends friends={friends} />}
       </div>
-      <div className="game-list">{games && <UserGames games={games} />}</div>
+      <div className="game-list">{games && <UserGames />}</div>
     </div>
   </div>
 );

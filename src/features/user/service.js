@@ -22,18 +22,6 @@ const getUserGames = ({ steamId }) =>
       return data.response.games;
     });
 
-const getFriendsGames = friend =>
-  fetch(BASE_STEAM_GET_GAMES + friend.steamId)
-    .then(res => res.json())
-    .then(data => {
-      const list = {
-        steamId: friend.steamId,
-        name: friend.name,
-        friendGames: data.response.games
-      };
-      return list;
-    });
-
 const getAllSteamGames = () =>
   fetch(STEAM_GET_ALL_GAMES)
     .then(res => res.json())
@@ -56,6 +44,5 @@ export default {
   getUserFriends,
   getUserGames,
   getAllSteamGames,
-  getFriendName,
-  getFriendsGames
+  getFriendName
 };
