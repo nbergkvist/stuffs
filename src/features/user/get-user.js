@@ -7,8 +7,7 @@ import GetUserForm from "./get-user-form";
 const { requestUserInfo } = actions;
 
 const GetUser = ({ fetchUserData }) => (
-  <div>
-    76561197962883293, "76561197960286296", 76561197960350381
+  <div className="form-container">
     <GetUserForm requestUserInfo={fetchUserData} />
     <button
       type="submit"

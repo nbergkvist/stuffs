@@ -7,9 +7,13 @@ import "./App.css";
 
 const { getGames, getFriends, getLoading } = userSelectors;
 
-const App = ({ games, friends, loading }) => (
+const App = ({ games, friends, loading, getCompareLoadingState }) => (
   <div className="site">
-    {loading && <div>Loading</div>}
+    {loading && (
+      <div className="loading-div">
+        <div className="loader" />
+      </div>
+    )}
     <div className="top-bar">
       <GetUser />
     </div>

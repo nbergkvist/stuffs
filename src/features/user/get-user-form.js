@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Input from "../helper/input";
 
 let GetUserForm = ({ handleSubmit, requestUserInfo, steamId }) => (
-  <form onSubmit={handleSubmit(requestUserInfo)}>
+  <form onSubmit={handleSubmit(requestUserInfo)} className="steam-id-form">
     <Field name="steamId" component={Input} type="tel" placeholder={steamId} />
   </form>
 );

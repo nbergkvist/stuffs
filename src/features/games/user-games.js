@@ -12,14 +12,19 @@ class UserGames extends PureComponent {
       getCompareLoadingState
     } = this.props;
     const gameList = compareGames.map(game => {
-      return <div key={game.appid}>{game.name} </div>;
+      return (
+        <div key={game.appid} className="single-game">
+          <span>{game.name}</span>
+        </div>
+      );
     });
     return (
-      <div>
-        <button type="button" onClick={() => startCompare("76561197960350381")}>
-          Add: 76561197960350381
-        </button>
-
+      <div className="game-container">
+        {getCompareLoadingState && (
+          <div className="loading-div">
+            <div className="loader" />
+          </div>
+        )}
         {!getCompareLoadingState && gameList}
       </div>
     );

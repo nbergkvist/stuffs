@@ -7,7 +7,8 @@ const {
   SAVE_FRIEND,
   LOADING_COMPARE_DONE,
   REMOVE_FRIEND_COMPARE,
-  GET_FRIEND_COMPARE_REQUEST
+  GET_FRIEND_COMPARE_REQUEST,
+  LOADING_REMOVE_DONE
 } = constants;
 
 const initialState = fromJS({
@@ -45,6 +46,9 @@ const reducer = (state = initialState, action) => {
       newState = newState.deleteIn(["compare", index]);
       return newState;
     case LOADING_COMPARE_DONE:
+      newState = newState.set("loading", false);
+      return newState;
+    case LOADING_REMOVE_DONE:
       newState = newState.set("loading", false);
       return newState;
     default:

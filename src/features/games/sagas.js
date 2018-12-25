@@ -13,7 +13,9 @@ const {
   SAVE_FRIEND,
   REMOVE_FRIEND_COMPARE,
   REMOVE_COMPARE_FRIEND_ID,
-  LOADING_COMPARE_DONE
+  LOADING_COMPARE_DONE,
+  LOADING_REMOVE_DONE,
+  READD_FRIEND_COMPARE
 } = constants;
 
 const { getFriendsGames } = service;
@@ -73,19 +75,32 @@ export function* compareFriendWorker(data) {
 
 function* removeFriendCompareWorker(data) {
   try {
-    const friendId = data.friendId;
+    const { friendId } = data;
     yield put({ type: REMOVE_COMPARE_FRIEND_ID, friendId });
-    const newCompare = yield select(getGames);
+    let newCompare = yield select(getGames);
     yield put({ type: "UPDATE_COMPARE_GAMES", newCompare });
     const compareList = yield select(getCompareList);
-    const actions = [];
+    const savedFriends = yield select(getSavedFriends);
     compareList.map(cl => {
       if (cl.steamId !== friendId) {
-        actions.push({ type: GET_FRIEND_COMPARE_REQUEST, friendId });
+        savedFriends.map(sf => {
+          if (sf.friendId === cl.steamId) {
+            const compareGames = [];
+            newCompare.map(compGame =>
+              sf.games.map(game => {
+                if (compGame.appid === game.appid) {
+                  const newItem = { appid: game.appid, name: game.name };
+                  compareGames.push(newItem);
+                }
+              })
+            );
+            newCompare = compareGames;
+          }
+        });
       }
     });
-    console.log(actions);
-    yield all(actions.map(ac => put(ac)));
+    yield put({ type: "UPDATE_COMPARE_GAMES", newCompare });
+    yield put({ type: LOADING_REMOVE_DONE });
   } catch (error) {
     yield put({ type: "nope_remove", error });
   }
@@ -99,4 +114,7 @@ function* removeFriendCompareWatcher() {
   yield takeLatest(REMOVE_FRIEND_COMPARE, removeFriendCompareWorker);
 }
 
-export default { compareFriendWatcher, removeFriendCompareWatcher };
+export default {
+  compareFriendWatcher,
+  removeFriendCompareWatcher
+};
