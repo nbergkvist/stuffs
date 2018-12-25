@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Input from "../helper/input";
 
 let FriendSearchForm = ({ handleSubmit }) => (
-  <form onSubmit={handleSubmit} className="friend-search">
+  <form onSubmit={handleSubmit}>
     <Field
       name="findFriend"
       component={Input}

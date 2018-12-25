@@ -35,7 +35,8 @@ const getFriendName = friendId =>
     .then(data => {
       const list = {
         steamId: friendId,
-        name: data.response.players[0].personaname
+        name: data.response.players[0].personaname,
+        avatar: data.response.players[0].avatar
       };
       return list;
     });

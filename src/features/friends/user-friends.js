@@ -35,7 +35,8 @@ class UserFriends extends PureComponent {
                   : startCompare(friend.steamId)
               }
             >
-              {friend.name}
+              <img alt="" src={friend.avatar} />
+              <span className="friend-name">{friend.name}</span>
             </button>
           );
         }
