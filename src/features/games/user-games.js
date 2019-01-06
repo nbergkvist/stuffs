@@ -7,20 +7,27 @@ class UserGames extends PureComponent {
   render() {
     const { compareGames, getCompareLoadingState } = this.props;
     const gameList = compareGames.map(game => {
-      const { appid } = game;
-      const sectionStyle = {
-        height: "100%",
-        width: "100%",
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-        backgroundImage: `url(https://steamcdn-a.akamaihd.net/steam/apps/${appid}/header.jpg)`
-      };
-      return (
-        <div key={game.appid} className="single-game">
-          <span>{game.name}</span>
-          <div style={sectionStyle} />
-        </div>
-      );
+      if (
+        game.name.toLowerCase().indexOf(" test") === -1 &&
+        game.name.toLowerCase().indexOf("beta") === -1 &&
+        game.name.toLowerCase().indexOf("alpha") === -1 &&
+        game.name.toLowerCase().indexOf("unstable") === -1
+      ) {
+        const { appid } = game;
+        const sectionStyle = {
+          height: "100%",
+          width: "100%",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundImage: `url(https://steamcdn-a.akamaihd.net/steam/apps/${appid}/header.jpg)`
+        };
+        return (
+          <div key={game.appid} className="single-game">
+            <span>{game.name}</span>
+            <div style={sectionStyle} />
+          </div>
+        );
+      }
     });
     return (
       <div className="game-container">
