@@ -99,7 +99,7 @@ button:active {
 .friend-list {
   width: 150px;
   height: calc(100% - 42px);
-  overflow: scroll;
+  overflow-y: scroll;
   padding-top: 42px;
 }
 
@@ -107,7 +107,12 @@ button:active {
   height: 100%;
   flex-grow: 1;
   flex-basis: 0;
-  overflow: scroll;
+  overflow-y: scroll;
+}
+
+.friend-list::-webkit-scrollbar,
+.game-list::-webkit-scrollbar {
+  display: none;
 }
 
 .game-container {
