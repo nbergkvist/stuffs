@@ -99,7 +99,7 @@ button:active {
 .friend-list {
   width: 150px;
   height: calc(100% - 42px);
-  overflow: scroll;
+  overflow-y: scroll;
   padding-top: 42px;
 }
 
@@ -107,7 +107,12 @@ button:active {
   height: 100%;
   flex-grow: 1;
   flex-basis: 0;
-  overflow: scroll;
+  overflow-y: scroll;
+}
+
+.friend-list::-webkit-scrollbar,
+.game-list::-webkit-scrollbar {
+  display: none;
 }
 
 .game-container {
@@ -149,20 +154,61 @@ button:active {
   display: flex;
 }
 
-.friend-name {
+.compare-list {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.compare-button {
+  border: 1px solid #d6d6d6;
+  height: 40px;
+  width: 140px;
+  display: inline-flex;
+  margin-right: 5px;
+  padding: 2px;
+}
+
+.compare-text-container {
+  margin-right: 5px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.compare-remove {
   height: 35px;
-  margin-left: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.friend-button:hover {
+.compare-text {
+  color: #fff;
+}
+
+.friend-name {
+  height: 35px;
+  margin-left: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  width: 75px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex-basis: auto;
+}
+
+.friend-button:hover,
+.compare-button:hover {
   cursor: pointer;
 }
 
 .friend-button-chosen {
   border: 3px solid green;
+  display: none;
 }
 
 .game-list-loading {

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { GetUser, selectors as userSelectors } from "./features/user";
 import { UserGames } from "./features/games";
-import { UserFriends } from "./features/friends";
+import { UserFriends, FriendsCompared } from "./features/friends";
 import "./App.css";
 
 const { getGames, getFriends, getLoading } = userSelectors;
@@ -21,7 +21,10 @@ const App = ({ games, friends, loading, getCompareLoadingState }) => (
       <div className="friend-list">
         {friends && <UserFriends friends={friends} />}
       </div>
-      <div className="game-list">{games && <UserGames />}</div>
+      <div className="game-list">
+        {friends && <FriendsCompared friends={friends} />}
+        {games && <UserGames />}
+      </div>
     </div>
   </div>
 );
