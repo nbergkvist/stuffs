@@ -11,6 +11,8 @@ class UserGames extends PureComponent {
         game.name.toLowerCase().indexOf(" test") === -1 &&
         game.name.toLowerCase().indexOf("beta") === -1 &&
         game.name.toLowerCase().indexOf("alpha") === -1 &&
+        game.name.toLowerCase().indexOf("tutorial") === -1 &&
+        game.name.toLowerCase().indexOf("dedicated server") === -1 &&
         game.name.toLowerCase().indexOf("unstable") === -1
       ) {
         const { appid } = game;

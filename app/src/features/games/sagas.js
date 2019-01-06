@@ -69,6 +69,7 @@ export function* compareFriendWorker(data) {
     });
     yield put({ type: LOADING_COMPARE_DONE });
   } catch (error) {
+    yield put({ type: LOADING_COMPARE_DONE });
     yield put({ type: "nope_add", error });
   }
 }
