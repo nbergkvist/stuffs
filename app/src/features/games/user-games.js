@@ -15,13 +15,13 @@ class UserGames extends PureComponent {
         game.name.toLowerCase().indexOf("dedicated server") === -1 &&
         game.name.toLowerCase().indexOf("unstable") === -1
       ) {
-        const { appid } = game;
+        const { appid, logo } = game;
         const sectionStyle = {
           height: "100%",
           width: "100%",
           backgroundPosition: "center",
           backgroundSize: "cover",
-          backgroundImage: `url(https://steamcdn-a.akamaihd.net/steam/apps/${appid}/header.jpg)`
+          backgroundImage: `url(https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/${appid}/${logo}.jpg)`
         };
         return (
           <div key={game.appid} className="single-game">

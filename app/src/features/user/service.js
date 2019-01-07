@@ -4,6 +4,7 @@ const {
   BASE_STEAM_GET_FRIENDS,
   BASE_STEAM_FRIEND,
   BASE_STEAM_GET_GAMES,
+  INCLUDE_APPINFO,
   STEAM_GET_ALL_GAMES,
   STEAM_GET_FRIEND_NAME
 } = apiConstants;
@@ -16,34 +17,21 @@ const getUserFriends = ({ steamId }) =>
     });
 
 const getUserGames = ({ steamId }) =>
-  fetch(BASE_STEAM_GET_GAMES + steamId)
+  fetch(BASE_STEAM_GET_GAMES + steamId + INCLUDE_APPINFO)
     .then(res => res.json())
     .then(data => {
       return data.response.games;
-    });
-
-const getAllSteamGames = () =>
-  fetch(STEAM_GET_ALL_GAMES)
-    .then(res => res.json())
-    .then(data => {
-      return data;
     });
 
 const getFriendName = friendId =>
   fetch(STEAM_GET_FRIEND_NAME + friendId)
     .then(res => res.json())
     .then(data => {
-      const list = {
-        steamId: friendId,
-        name: data.response.players[0].personaname,
-        avatar: data.response.players[0].avatar
-      };
-      return list;
+      return data.response.players;
     });
 
 export default {
   getUserFriends,
   getUserGames,
-  getAllSteamGames,
   getFriendName
 };

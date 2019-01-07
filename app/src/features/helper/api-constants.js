@@ -3,6 +3,7 @@ export default {
     "https://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=A22C81E13075DA81B066A63FFA475674&steamid=",
   BASE_STEAM_GET_GAMES:
     "https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=A22C81E13075DA81B066A63FFA475674&steamid=",
+  INCLUDE_APPINFO: "&include_appinfo=1",
   BASE_STEAM_FRIEND: "&relationship=friend",
   steamapikey: "A22C81E13075DA81B066A63FFA475674",
   STEAM_GET_ALL_GAMES: "https://api.steampowered.com/ISteamApps/GetAppList/v2/",

@@ -1,6 +1,6 @@
-import { put, takeLatest, call, select, all } from "redux-saga/effects";
+import { put, takeLatest, call, select } from "redux-saga/effects";
 import constants from "./constants";
-import { getAllGames, getCompareGames, getGames } from "../user/selectors";
+import { getCompareGames, getGames } from "../user/selectors";
 import service from "./service";
 import { getSavedFriends, getCompareList } from "./selectors";
 import actions from "./actions";
@@ -23,7 +23,6 @@ const { getFriendsGames } = service;
 export function* compareFriendWorker(data) {
   try {
     const friendId = data.friendId;
-    const allGames = yield select(getAllGames);
     const friendGames = yield call(getFriendsGames, friendId);
     const savedFriends = yield select(getSavedFriends);
     const compareGames = yield select(getCompareGames);
@@ -37,12 +36,12 @@ export function* compareFriendWorker(data) {
     });
     if (!friendFound) {
       friendGames.map(game => {
-        allGames.applist.apps.find(element => {
-          if (element.appid === game.appid) {
-            const newListItem = { appid: game.appid, name: element.name };
-            games.push(newListItem);
-          }
-        });
+        const newListItem = {
+          appid: game.appid,
+          name: game.name,
+          logo: game.img_logo_url
+        };
+        games.push(newListItem);
       });
       yield put({
         type: SAVE_FRIEND,
@@ -55,7 +54,11 @@ export function* compareFriendWorker(data) {
     compareGames.map(compGame =>
       games.map(game => {
         if (compGame.appid === game.appid) {
-          const newItem = { appid: game.appid, name: game.name };
+          const newItem = {
+            appid: game.appid,
+            name: game.name,
+            logo: game.logo
+          };
           newCompare.push(newItem);
         }
       })
@@ -90,7 +93,11 @@ function* removeFriendCompareWorker(data) {
             newCompare.map(compGame =>
               sf.games.map(game => {
                 if (compGame.appid === game.appid) {
-                  const newItem = { appid: game.appid, name: game.name };
+                  const newItem = {
+                    appid: game.appid,
+                    name: game.name,
+                    logo: game.logo
+                  };
                   compareGames.push(newItem);
                 }
               })

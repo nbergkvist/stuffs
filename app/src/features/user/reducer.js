@@ -12,7 +12,6 @@ const initialState = fromJS({
   friends: null,
   games: null,
   loading: false,
-  allGames: null,
   compareGames: null
 });
 
@@ -29,7 +28,6 @@ const reducer = (state = initialState, action) => {
       newState = newState.set("friends", action.friends);
       newState = newState.set("games", action.games);
       newState = newState.set("compareGames", action.games);
-      newState = newState.set("allGames", action.allGames);
       newState = newState.set("loading", false);
       return newState;
     case GET_USER_DATA_FAILURE:

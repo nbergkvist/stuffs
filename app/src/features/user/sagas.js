@@ -9,43 +9,44 @@ const {
   GET_USER_DATA_FAILURE
 } = constants;
 
-const {
-  getUserFriends,
-  getUserGames,
-  getAllSteamGames,
-  getFriendName
-} = service;
+const { getUserFriends, getUserGames, getFriendName } = service;
 
 export function* getUserDataWorker() {
   try {
     const steamId = yield select(getFormValues("getUserForm"));
     const userFriends = yield call(getUserFriends, steamId);
     const userGames = yield call(getUserGames, steamId);
-    const allGames = yield call(getAllSteamGames);
 
     const games = [];
     userGames.map(game => {
-      allGames.applist.apps.find(element => {
-        if (element.appid === game.appid) {
-          const newListItem = { appid: game.appid, name: element.name };
-          games.push(newListItem);
-        }
-      });
+      const newListItem = {
+        appid: game.appid,
+        name: game.name,
+        logo: game.img_logo_url
+      };
+      games.push(newListItem);
     });
 
-    // const friends = [];
-    const friends = yield all(
-      userFriends.map(friend => {
-        const friendId = friend.steamid;
-        return call(getFriendName, friendId);
-      })
-    );
+    const friends = [];
+    let friendIds = "";
+    userFriends.map((friend, index) => {
+      if (index === 0) friendIds = friend.steamid;
+      else friendIds = `${friendIds},${friend.steamid}`;
+    });
+    const allFriendNames = yield call(getFriendName, friendIds);
+    allFriendNames.map(friend => {
+      const newFriend = {
+        steamId: friend.steamid,
+        name: friend.personaname,
+        avatar: friend.avatar
+      };
+      friends.push(newFriend);
+    });
 
     yield put({
       type: GET_USER_DATA_SUCCESS,
       friends,
       games,
-      allGames,
       steamId
     });
   } catch (error) {
